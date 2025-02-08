@@ -28,6 +28,8 @@
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "postcss": "^8",
+    "prism": "^4.1.2",
+    "prisma": "^6.3.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
