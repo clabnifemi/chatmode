@@ -1,5 +1,5 @@
-import {db} from "@/lib/db"
-import {getCurrentUser} from "@getCurrentUser"
+import { db } from "@/lib/db"
+import { getCurrentUser } from "./getCurrentUser"
 
 const getConversations = async () => {
     const { currentUserPrisma} = await  getCurrentUser()
@@ -9,7 +9,7 @@ const getConversations = async () => {
     try {
         const conversations = await db.conversation.findMany({
             orderBy: {
-                listMessageAt: "desc"
+                lastMessageAt: "desc"
             },
             where: {
                 userIds: {
@@ -17,7 +17,7 @@ const getConversations = async () => {
                 }
             },
             include: {
-                users: true,
+                user: true,
                 messages: {
                     include:{
                         sender: true,
