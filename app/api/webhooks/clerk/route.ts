@@ -47,8 +47,6 @@ try {
 const eventType = evt.type 
 
 
-console.log(payload.data)
-
 if (eventType === 'user.created') {
     await db.user.create({
         data: {
