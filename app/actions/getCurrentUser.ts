@@ -17,7 +17,7 @@ export const getCurrentUser = async (): Promise<CurrentUser> => {
     if (currentUserClerk === null) {
         throw new Error('Unauthorized');
     }
-    
+
     const currentUserPrisma = await db.user.findUnique({
         where: {
             externalUserId: currentUserClerk.id
@@ -27,9 +27,10 @@ export const getCurrentUser = async (): Promise<CurrentUser> => {
             followedBy: true
         }
     })
-    if (currentUserPrisma ===null) {
+
+    if (currentUserPrisma === null) {
         throw new Error('User not found!')
     }
 
-    return { currentUserPrisma, currentUserClerk };
+    return { currentUserPrisma, currentUserClerk }
 }

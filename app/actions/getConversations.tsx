@@ -9,24 +9,24 @@ const getConversations = async () => {
     try {
         const conversations = await db.conversation.findMany({
             orderBy: {
-                lastMessageAt: "desc"
+                lastMessageAt: 'desc'
             },
             where: {
                 userIds: {
-                    has:currentUserPrisma.id
+                    has: currentUserPrisma.id
                 }
             },
             include: {
-                user: true,
+                users: true,
                 messages: {
-                    include:{
+                    include: {
                         sender: true,
-                        seen:true
-                    }   
+                        seen: true
+                    }
                 }
             }
         })
-    return conversations
+        return conversations
     }
     catch (error: any) {
         console.log(error)
