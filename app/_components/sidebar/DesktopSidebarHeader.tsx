@@ -1,7 +1,13 @@
+"use client"
+
+import NewContactSheet from "./sheets/NewContactSheet"
+
 const DesktopSidebarHeader = () => {
     return (
         <div>
-            Desktop Sidebar!
+            <NewContactSheet
+            handleAddContact={() =>{}}
+            />
         </div>
     )
 }
