@@ -12,7 +12,9 @@ async function Sidebar({
     return (
         <div className="h-full w-screen flex">
             <aside className="h-full min-w-[300px] bg-zinc-400">
-                <DesktopSidebarHeader/>
+                <DesktopSidebarHeader
+                currentUser={currentUserPrisma}
+                />
                 <ConversationList
                 conversations={conversations}
                />

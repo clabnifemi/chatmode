@@ -42,13 +42,7 @@ const NewChatSheet = ({
 
     return (
         <div>
-            {(currentUser !== undefined) &&
-                <GroupChatModal
-                    users={currentUser.following}
-                    isOpen={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                />
-            }
+            
 
             <Sheet>
                 <SheetTrigger asChild>
@@ -126,4 +120,4 @@ const NewChatSheet = ({
     );
 }
 
-export default NewChatSheet;
+export default NewChatSheet; 
