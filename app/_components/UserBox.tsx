@@ -2,7 +2,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { User } from "@prisma/client";
+import axios from "axios";
 import { Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useCallback, useState } from "react";
 
 
 interface UserBoxProps {
@@ -14,14 +17,33 @@ const UserBox: React.FC<UserBoxProps> = ({
     data,
     handleRemoveContact
 }) => {
+    const router = useRouter()
+    const [isLoading, setIsLoading] = useState(false)
 
-    const handleContactClick = () => {
-        return
-    }
+    const handleContactClick = useCallback(() => {
+        axios.post('/api/conversations', {
+            userId: data.id})
+            .then((data) => {
+                router.push(`/conversations/${data.data.id}`)
+            })
+            .finally(() => setIsLoading(false))
+    },[data, router])
 
-    const handleRemoveClick = () => {
-        return
-    }
+    const handleRemoveClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation()
+        setIsLoading(true)
+        console.log("Removing contact")
+        axios.post('api/contacts', {phoneNumber: data.phoneNumber, action: 'remove'})
+           .then((response) => {
+            const newContacts = response.data;
+            handleRemoveContact(newContacts)
+        })
+        .catch((error) => {
+            console.log("Error removing contact", error)
+        })
+        .finally(() => setIsLoading(false))
+}
+
     return (
         <>
         <Separator/>
@@ -41,7 +63,7 @@ const UserBox: React.FC<UserBoxProps> = ({
         ">
             <div className="flex w-full items-center">
                 <Avatar className="w-12 h-12">
-                    <AvatarImage src=""/>
+                    <AvatarImage src={data.profileImageUrl || undefined}/>
                     <AvatarFallback>
                         CN
                     </AvatarFallback>
