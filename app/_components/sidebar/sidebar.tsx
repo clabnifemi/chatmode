@@ -19,7 +19,7 @@ async function Sidebar({
                 conversations={conversations}
                />
             </aside>
-            <main>
+            <main className="w-full flex justify-center">
             {children}
             </main>
         </div>
