@@ -57,7 +57,8 @@ const SeenInfo = useMemo(() => {
 
                     <div className="absolute bottom-0 right-0 flex items-end">
                         <div className="text-[11px] h-[15px] text-gray-500">
-{format(new Date(data.createdAt), 'p')}
+                         {format(new Date(data.
+                            createdAt), 'p')}
                         </div>
                           {isOwn && 
                           <img src={SeenInfo} 
