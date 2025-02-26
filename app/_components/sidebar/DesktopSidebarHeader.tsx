@@ -7,6 +7,7 @@ import NewContactSheet from "./sheets/NewContactSheet"
 import { useClerk, UserButton } from "@clerk/nextjs"
 import { LogOut } from "lucide-react"
 import { useRouter } from "next/navigation"
+import StatusSheet from "./sheets/status/StatusSheet"
 
 interface DesktopSidebarHeaderProps {
     currentUser: User & {
@@ -28,7 +29,8 @@ const DesktopSidebarHeader = ({
             </div>
         </nav>
         <nav className="flex justify-between items-center space-x-5 mr-4">
-        <StatusSheet />
+        <StatusSheet user={currentUser} />
+            <NewChatSheet currentUser={currentUser} />
             <LogOut className="text-[#54656f] cursor-pointer" onClick={() => signOut(() => router.push("/sign-in"))}/>
         </nav>
      </div>
