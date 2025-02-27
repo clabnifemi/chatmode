@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Plus } from "lucide-react";
 import { UploadButton } from "@/lib/uploadthing";
 import "@uploadthing/react/styles.css"
+import StoryViewer from "./StoryViewer";
 
 
 interface StatusButtonProps {
@@ -59,12 +60,7 @@ function StatusButton({
             </div>
 
     </div>
- )
-}
-
-
-
-
+ )}
 
 interface StatusSidebarButtonProps {
     user: User
@@ -96,6 +92,7 @@ const StatusSidebarButton = ({
 
     return (
         <div>
+            <input disabled />
             {hasStory ? (
                             <div>
                             <button onClick={toggleShowStory} className="text-[#54656f] cursor-pointer hover:opacity-75 transition mt-2 ml-2">
@@ -107,7 +104,13 @@ const StatusSidebarButton = ({
                         />
                                 </button>
                                 {showStory && (
-                                    <div>THIS IS STORY VIWER</div>
+                                    <StoryViewer 
+                                    user={user}
+                                    onClose={() => 
+                                    toggleShowStory()}
+                                    onDeleteStory={() => 
+                                    handleDeleteStory()}
+                                    />
                                 )
 
                                 }
@@ -145,13 +148,15 @@ const StatusSidebarButton = ({
                    }}
                    onClientUploadComplete={(res) =>
                     {
+                       axios.post('/api/status', { statusImageUrl: res[0].url })
+                       .then(res => { user.statusImageUrl = res.data.statusImageUrl;
                         toast({
                             title: "Upload complete!",
                             className: "bg-green-500",
                             duration: 2000,
-                        })
-                       axios.post('/api/status', { statusImageUrl: res[0].url })
-                       .then(res => { user.statusImageUrl = res.data.statusImageUrl})
+                        }) 
+
+                       })
                        .catch(error => {console.log(error)})
                    }}
                 />
