@@ -2,6 +2,11 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
 // Define a matcher for the root route
 const isRootRoute = createRouteMatcher(['/']);
+const isPublicRoute = createRouteMatcher([
+  '/api/webhooks(.*)', 
+  '/api/uploadthing'
+]);
+
 
 export default clerkMiddleware(async (auth, req) => {
   if (isRootRoute(req)) {
