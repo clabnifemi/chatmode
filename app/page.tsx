@@ -1,12 +1,18 @@
-"use client"
-import { SignIn, UserButton } from "@clerk/nextjs";
+"use client";
+import { SignIn } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Page() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/conversations");
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div>
       <SignIn />
-      <UserButton  />
-      This is a user page
     </div>
   );
 }
